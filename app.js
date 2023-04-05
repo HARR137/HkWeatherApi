@@ -40,6 +40,5 @@ app.get("/api/weather", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(host, origin);
   console.log(`App listening at http://localhost:${port}`);
 });
