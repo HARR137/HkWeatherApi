@@ -2,11 +2,10 @@ const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const stationObject = require("./key");
-const querystring = require('querystring');
-
+const querystring = require("querystring");
 
 const app = express();
-const port = 4000;
+const port = 3000;
 const url = "https://www.weather.gov.hk/wxinfo/ts/text_readings_c.htm";
 const regex = /^\s*[\u4e00-\u9fa5\s]+\s+(?:\d+(\.\d+)|N\/A)/gm;
 const stringDigitSeparate = /^([^0-9]+)([\d.]+)$/;
@@ -40,7 +39,6 @@ app.get("/api/weather", async (req, res) => {
       }
     });
 
-
     if (district) {
       let targetPosition;
       let districtObjects = stationObject.district;
@@ -50,27 +48,22 @@ app.get("/api/weather", async (req, res) => {
           // res.json(districtObject.position)
           targetPosition = districtObjects[districtKey].position;
         }
-      })
-      console.log(targetPosition)
-
+      });
+      console.log(targetPosition);
 
       let selectedDistrict = [];
 
-      Object.keys(targetPosition).map((positionKey)=>{
-        selectedDistrict.push( finalObj[targetPosition[positionKey]] );
-      })
+      Object.keys(targetPosition).map((positionKey) => {
+        selectedDistrict.push(finalObj[targetPosition[positionKey]]);
+      });
 
       console.log(selectedDistrict);
 
-      res.json({targetPosition,selectedDistrict })
-    }
-    else {
+      res.json({ targetPosition, selectedDistrict });
+    } else {
       res.json(finalObj);
     }
-
-
   } catch (error) {
-
     console.error(error);
     res.status(500).json({ error: "An error occurred while fetching data." });
   }
