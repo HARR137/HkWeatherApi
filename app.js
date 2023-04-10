@@ -40,7 +40,7 @@ app.get("/api/weather", async (req, res) => {
     });
 
     if (district) {
-      let targetPosition;
+      let targetPosition = false;
       let districtObjects = stationObject.district;
 
       Object.keys(districtObjects).map((districtKey) => {
@@ -53,13 +53,18 @@ app.get("/api/weather", async (req, res) => {
 
       let selectedDistrict = [];
 
-      Object.keys(targetPosition).map((positionKey) => {
-        selectedDistrict.push(finalObj[targetPosition[positionKey]]);
-      });
+      if (targetPosition) {
+        Object.keys(targetPosition).map((positionKey) => {
+          selectedDistrict.push(finalObj[targetPosition[positionKey]]);
+        });
+        res.json({ targetPosition, selectedDistrict });
+      } else {
+        res
+          .status(400)
+          .json({ error: "District data not found, please check for typo." });
+      }
 
       console.log(selectedDistrict);
-
-      res.json({ targetPosition, selectedDistrict });
     } else {
       res.json(finalObj);
     }
