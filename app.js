@@ -49,22 +49,29 @@ app.get("/api/weather", async (req, res) => {
           targetPosition = districtObjects[districtKey].position;
         }
       });
-      console.log(targetPosition);
 
       let selectedDistrict = [];
-
       if (targetPosition) {
         Object.keys(targetPosition).map((positionKey) => {
           selectedDistrict.push(finalObj[targetPosition[positionKey]]);
         });
-        res.json({ targetPosition, selectedDistrict });
+
+        let avgTemperature =
+          selectedDistrict.reduce(
+            (acc, current) => parseFloat(acc) + parseFloat(current),
+            0
+          ) / selectedDistrict.length;
+
+        res.json({
+          targetPosition,
+          selectedDistrict,
+          districtAvgTemperature: avgTemperature,
+        });
       } else {
         res
           .status(400)
           .json({ error: "District data not found, please check for typo." });
       }
-
-      console.log(selectedDistrict);
     } else {
       res.json(finalObj);
     }
