@@ -83,28 +83,28 @@ const stationObject = {
   },
   district: {
     kowloonCity: {
-      name: "Kowloon City",
+      name: "Kowloon City 九龍城",
       position: {
         klt: "九龍城",
         se1: "啟德跑道公園",
       },
     },
     taiPo: {
-      name: "Tai Po",
+      name: "Tai Po 大埔",
       position: {
         taimeituk: "大美督",
         tpo: "大埔",
       },
     },
     centralAndWestern: {
-      name: "Central and Western District",
+      name: "Central and Western District 中西區",
       position: {
         thepeak: "山頂",
         hkp: "香港公園",
       },
     },
     yuenLong: {
-      name: "Yuen Long",
+      name: "Yuen Long 元朗",
       position: {
         yuenlongpark: "元朗公園",
         sek: "石崗",
@@ -113,20 +113,20 @@ const stationObject = {
       },
     },
     tuenMun: {
-      name: "Tuen Mun",
+      name: "Tuen Mun 屯門",
       position: {
         tun: "屯門",
       },
     },
     north: {
-      name: "North District",
+      name: "North District 北區",
       position: {
         sheungshui: "上水",
         tkl: "打鼓嶺",
       },
     },
     saiKung: {
-      name: "Sai Kung",
+      name: "Sai Kung 西貢",
       position: {
         paktamchung: "北潭涌",
         skg: "西貢",
@@ -135,58 +135,58 @@ const stationObject = {
       },
     },
     shaTin: {
-      name: "Sha Tin",
+      name: "Sha Tin 沙田",
       position: {
         sha: "沙田",
       },
     },
     eastern: {
-      name: "Eastern District",
+      name: "Eastern District 東區",
       position: {
         skw: "筲箕灣",
       },
     },
     yauTsimMong: {
-      name: "Yau Tsim Mong",
+      name: "Yau Tsim Mong 油尖旺",
       position: {
         hko: "天文台",
         kp: "京士柏",
       },
     },
     southern: {
-      name: "Southern District",
+      name: "Southern District 南區",
       position: {
         sty: "赤柱",
         hks: "黃竹坑",
       },
     },
     tsuenWan: {
-      name: "Tsuen Wan",
+      name: "Tsuen Wan 荃灣",
       position: {
         twn: "荃灣可觀",
         tw: "荃灣城門谷",
       },
     },
     shamShuiPo: {
-      name: "Sham Shui Po",
+      name: "Sham Shui Po 深水埗",
       position: {
         ssp: "深水埗",
       },
     },
     wongTaiSin: {
-      name: "Wong Tai Sin",
+      name: "Wong Tai Sin 黃大仙",
       position: {
         wts: "黃大仙",
       },
     },
     kwaiTsing: {
-      name: "Kwai Tsing",
+      name: "Kwai Tsing 葵青",
       position: {
         ty1: "青衣",
       },
     },
     outlyingIslands: {
-      name: "Outlying Islands",
+      name: "Outlying Islands 離島",
       position: {
         hka: "赤鱲角",
         pengchau: "坪洲",
@@ -196,13 +196,13 @@ const stationObject = {
       },
     },
     wanChai: {
-      name: "Wan Chai",
+      name: "Wan Chai 灣仔",
       position: {
         hpv: "跑馬地",
       },
     },
     kwunTong: {
-      name: "Kwun Tong",
+      name: "Kwun Tong 觀塘",
       position: {
         ktg: "觀塘",
       },
