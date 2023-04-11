@@ -65,7 +65,7 @@ app.get("/api/weather", async (req, res) => {
         res.json({
           targetPosition,
           selectedDistrict,
-          districtAvgTemperature: avgTemperature,
+          districtAvgTemperature: avgTemperature.toPrecision(3),
         });
       } else {
         res
