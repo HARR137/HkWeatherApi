@@ -63,12 +63,18 @@ app.get("/api/weather", async (req, res) => {
     if (district) {
       let targetDistrict = disrtrictValidation(district, lang);
 
-      let selectedDistrict = [];
-      Object.keys(targetDistrict).map((positionKey)=>{
-        selectedDistrict.push( finalObj[targetDistrict[positionKey]] );
-      })
 
-      res.json({targetDistrict,selectedDistrict })
+      if(targetDistrict != {}) {
+        let selectedDistrict = [];
+        Object.keys(targetDistrict).map((positionKey)=>{
+          selectedDistrict.push( finalObj[targetDistrict[positionKey]] );
+        })
+
+        res.json({targetDistrict,selectedDistrict })
+      }
+      else{
+        resstatus(400).json({"error":"District data not found, please check for missing lang tag or typo."})
+      }
     }
     else {
       res.json(finalObj);
