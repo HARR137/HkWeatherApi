@@ -2,13 +2,40 @@ const express = require("express");
 const axios = require("axios");
 const cheerio = require("cheerio");
 const stationObject = require("./key");
-const querystring = require("querystring");
+
+
 
 const app = express();
 const port = 3000;
 const url = "https://www.weather.gov.hk/wxinfo/ts/text_readings_c.htm";
 const regex = /^\s*[\u4e00-\u9fa5\s]+\s+(?:\d+(\.\d+)|N\/A)/gm;
 const stringDigitSeparate = /^([^0-9]+)([\d.]+)$/;
+
+
+const disrtrictValidation = (district, lang)=>{
+  let targetPosition = {};
+  let districtObjects = stationObject.district;
+  let districtSuffix = lang === "zh" ? "區": lang === "cn" ? "区" : "district";
+  district = district.replace(districtSuffix,"")
+  console.log("ARRRRR", district)
+
+
+  Object.keys(districtObjects).map((districtKey) => {
+
+      districtObjects[districtKey].name.map((districtName)=>{
+        // console.log("Target", districtName)
+        // console.log("without :", district)
+        // console.log("with district suffix :", district)
+
+        districtKey = districtKey.replace(districtSuffix);
+
+        if(districtName.includes(district) ){
+          targetPosition = districtObjects[districtKey].position;
+        }
+      })
+  })
+  return targetPosition;
+}
 
 app.get("/api/weather", async (req, res) => {
   const lang = req.query?.lang || "en";
@@ -40,15 +67,8 @@ app.get("/api/weather", async (req, res) => {
     });
 
     if (district) {
-      let targetPosition = false;
-      let districtObjects = stationObject.district;
-
-      Object.keys(districtObjects).map((districtKey) => {
-        if (districtObjects[districtKey].name.includes(district)) {
-          // res.json(districtObject.position)
-          targetPosition = districtObjects[districtKey].position;
-        }
-      });
+      let targetDistrict = disrtrictValidation(district, lang);
+      console.log("targetDistrict", targetDistrict);
 
       let selectedDistrict = [];
       if (targetPosition) {
@@ -56,23 +76,13 @@ app.get("/api/weather", async (req, res) => {
           selectedDistrict.push(finalObj[targetPosition[positionKey]]);
         });
 
-        let avgTemperature =
-          selectedDistrict.reduce(
-            (acc, current) => parseFloat(acc) + parseFloat(current),
-            0
-          ) / selectedDistrict.length;
+      Object.keys(targetDistrict).map((positionKey)=>{
+        selectedDistrict.push( finalObj[targetDistrict[positionKey]] );
+      })
 
-        res.json({
-          targetPosition,
-          selectedDistrict,
-          districtAvgTemperature: avgTemperature.toPrecision(3),
-        });
-      } else {
-        res
-          .status(400)
-          .json({ error: "District data not found, please check for typo." });
-      }
-    } else {
+      res.json({targetDistrict,selectedDistrict })
+    }
+    else {
       res.json(finalObj);
     }
   } catch (error) {
