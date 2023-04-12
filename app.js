@@ -12,7 +12,7 @@ const stringDigitSeparate = /^([^0-9]+)([\d.]+)$/;
 const disrtrictValidation = (district, lang) => {
   let targetPosition = {};
   let districtObjects = stationObject.district;
-  let districtSuffixs = ["區", "区", "district"];
+  let districtSuffixs = ["區", "区", "district", "distict"];
   districtSuffixs.map((suffix) => {
     district = district.toLowerCase().replace(suffix, "");
   });
