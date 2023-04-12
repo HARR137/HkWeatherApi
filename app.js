@@ -17,15 +17,15 @@ const disrtrictValidation = (district, lang) => {
     district = district.toLowerCase().replace(suffix, "");
   });
 
-  console.log("district:", district);
-
   Object.keys(districtObjects).map((districtKey) => {
     districtObjects[districtKey].name.map((districtName) => {
       districtSuffixs.map((suffix) => {
-        districtKey = districtKey.replace(suffix, "");
+        districtName = districtName.replace(suffix, "").toLowerCase().trim();
       });
 
-      if (districtName.toLowerCase().trim() === district.toLowerCase().trim()) {
+      district.toLowerCase().trim();
+
+      if (districtName === district.toLowerCase().trim()) {
         targetPosition = districtObjects[districtKey].position;
       }
     });
