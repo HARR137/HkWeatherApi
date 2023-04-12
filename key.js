@@ -83,7 +83,7 @@ const stationObject = {
   },
   district: {
     kowloonCity: {
-      name: ["Kowloon City", "九龍城" ] ,
+      name: ["Kowloon City", "九龍城", "九龙城"],
       position: {
         klt: "九龍城",
         se1: "啟德跑道公園",
@@ -113,20 +113,20 @@ const stationObject = {
       },
     },
     tuenMun: {
-      name: ["Tuen Mun", "屯門"],
+      name: ["Tuen Mun", "屯門", "屯门"],
       position: {
         tun: "屯門",
       },
     },
     north: {
-      name: ["North District", "北區"],
+      name: ["North District", "北區", "北区"],
       position: {
         sheungshui: "上水",
         tkl: "打鼓嶺",
       },
     },
     saiKung: {
-      name: ["Sai Kung", "西貢"],
+      name: ["Sai Kung", "西貢", "西贡"],
       position: {
         paktamchung: "北潭涌",
         skg: "西貢",
@@ -141,7 +141,7 @@ const stationObject = {
       },
     },
     eastern: {
-      name: ["Eastern District", "東區"],
+      name: ["Eastern District", "東區", "东区"],
       position: {
         skw: "筲箕灣",
       },
@@ -154,14 +154,14 @@ const stationObject = {
       },
     },
     southern: {
-      name: ["Southern District", "南區"],
+      name: ["Southern District", "南區", "南区"],
       position: {
         sty: "赤柱",
         hks: "黃竹坑",
       },
     },
     tsuenWan: {
-      name: ["Tsuen Wan", "荃灣"],
+      name: ["Tsuen Wan", "荃灣", "荃湾"],
       position: {
         twn: "荃灣可觀",
         tw: "荃灣城門谷",
@@ -186,7 +186,7 @@ const stationObject = {
       },
     },
     outlyingIslands: {
-      name: ["Outlying Islands", "離島"],
+      name: ["Outlying Islands", "離島", "离岛"],
       position: {
         hka: "赤鱲角",
         pengchau: "坪洲",
@@ -196,13 +196,13 @@ const stationObject = {
       },
     },
     wanChai: {
-      name: ["Wan Chai", "灣仔"],
+      name: ["Wan Chai", "灣仔", "湾仔"],
       position: {
         hpv: "跑馬地",
       },
     },
     kwunTong: {
-      name: ["Kwun Tong", "觀塘"],
+      name: ["Kwun Tong", "觀塘", "观塘"],
       position: {
         ktg: "觀塘",
       },
