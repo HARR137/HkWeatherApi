@@ -17,19 +17,13 @@ const disrtrictValidation = (district, lang)=>{
   let districtObjects = stationObject.district;
   let districtSuffix = lang === "zh" ? "區": lang === "cn" ? "区" : "district";
   district = district.replace(districtSuffix,"")
-  console.log("ARRRRR", district)
-
 
   Object.keys(districtObjects).map((districtKey) => {
 
       districtObjects[districtKey].name.map((districtName)=>{
-        // console.log("Target", districtName)
-        // console.log("without :", district)
-        // console.log("with district suffix :", district)
-
         districtKey = districtKey.replace(districtSuffix);
 
-        if(districtName.includes(district) ){
+        if(districtName.trim() === (district.trim()) ){
           targetPosition = districtObjects[districtKey].position;
         }
       })
@@ -68,14 +62,8 @@ app.get("/api/weather", async (req, res) => {
 
     if (district) {
       let targetDistrict = disrtrictValidation(district, lang);
-      console.log("targetDistrict", targetDistrict);
 
       let selectedDistrict = [];
-      if (targetPosition) {
-        Object.keys(targetPosition).map((positionKey) => {
-          selectedDistrict.push(finalObj[targetPosition[positionKey]]);
-        });
-
       Object.keys(targetDistrict).map((positionKey)=>{
         selectedDistrict.push( finalObj[targetDistrict[positionKey]] );
       })
