@@ -3,33 +3,35 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const stationObject = require("./key");
 
-
-
 const app = express();
 const port = 3000;
 const url = "https://www.weather.gov.hk/wxinfo/ts/text_readings_c.htm";
 const regex = /^\s*[\u4e00-\u9fa5\s]+\s+(?:\d+(\.\d+)|N\/A)/gm;
 const stringDigitSeparate = /^([^0-9]+)([\d.]+)$/;
 
-
-const disrtrictValidation = (district, lang)=>{
+const disrtrictValidation = (district, lang) => {
   let targetPosition = {};
   let districtObjects = stationObject.district;
-  let districtSuffix = lang === "zh" ? "區": lang === "cn" ? "区" : "district";
-  district = district.replace(districtSuffix,"")
+  let districtSuffixs = ["區", "区", "district"];
+  districtSuffixs.map((suffix) => {
+    district = district.toLowerCase().replace(suffix, "");
+  });
+
+  console.log("district:", district);
 
   Object.keys(districtObjects).map((districtKey) => {
+    districtObjects[districtKey].name.map((districtName) => {
+      districtSuffixs.map((suffix) => {
+        districtKey = districtKey.replace(suffix, "");
+      });
 
-      districtObjects[districtKey].name.map((districtName)=>{
-        districtKey = districtKey.replace(districtSuffix);
-
-        if(districtName.trim() === (district.trim()) ){
-          targetPosition = districtObjects[districtKey].position;
-        }
-      })
-  })
+      if (districtName.toLowerCase().trim() === district.toLowerCase().trim()) {
+        targetPosition = districtObjects[districtKey].position;
+      }
+    });
+  });
   return targetPosition;
-}
+};
 
 app.get("/api/weather", async (req, res) => {
   const lang = req.query?.lang || "en";
@@ -63,20 +65,31 @@ app.get("/api/weather", async (req, res) => {
     if (district) {
       let targetDistrict = disrtrictValidation(district, lang);
 
-
-      if(targetDistrict != {}) {
+      if (targetDistrict != {}) {
         let selectedDistrict = [];
-        Object.keys(targetDistrict).map((positionKey)=>{
-          selectedDistrict.push( finalObj[targetDistrict[positionKey]] );
-        })
+        Object.keys(targetDistrict).map((positionKey) => {
+          selectedDistrict.push(finalObj[targetDistrict[positionKey]]);
+        });
 
-        res.json({targetDistrict,selectedDistrict })
+        let avgTemperature = (
+          selectedDistrict.reduce(
+            (acc, current) => parseFloat(acc) + parseFloat(current),
+            0
+          ) / selectedDistrict.length
+        ).toPrecision(3);
+
+        res.json({
+          targetDistrict,
+          selectedDistrict,
+          districtAvgTemperature: avgTemperature,
+        });
+      } else {
+        resstatus(400).json({
+          error:
+            "District data not found, please check for missing lang tag or typo.",
+        });
       }
-      else{
-        resstatus(400).json({"error":"District data not found, please check for missing lang tag or typo."})
-      }
-    }
-    else {
+    } else {
       res.json(finalObj);
     }
   } catch (error) {
